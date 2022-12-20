@@ -3,17 +3,11 @@ package com.revature.models;
 public class User {
 
     private int user_id;
-
     private String ers_username;
-
     private String ers_password;
-
     private String user_first_name;
-
     private String user_last_name;
-
     private Role role;
-
     private int user_role_id_fk;
 
     //CONSTRUCTORS ==========================================

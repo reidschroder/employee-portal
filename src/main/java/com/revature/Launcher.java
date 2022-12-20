@@ -1,6 +1,7 @@
 package com.revature;
 
 import com.revature.controllers.RoleController;
+import com.revature.controllers.TicketController;
 import com.revature.controllers.UserController;
 import com.revature.daos.UserDAO;
 import com.revature.utils.ConnectionUtil;
@@ -32,10 +33,15 @@ public class Launcher {
         UserController uc = new UserController();
         RoleController rc = new RoleController();
 
+        TicketController tc = new TicketController();
+
+
 
 
 
         app.get("/users", uc.getUsersHandler);
+
+        app.get("/tickets", tc.getTicketsHandler);
 
 
 //        UserDAO uDAO = new UserDAO();
