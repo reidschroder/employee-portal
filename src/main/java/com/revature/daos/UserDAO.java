@@ -95,7 +95,7 @@ public User insertUser(User use){
 
         ps.setString(1, use.getErs_username());
         ps.setString(2, use.getErs_password());
-        ps.setString(3, use.getErs_username());
+        ps.setString(3, use.getUser_first_name());
         ps.setString(4, use.getUser_last_name());
 
 
