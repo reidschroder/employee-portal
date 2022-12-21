@@ -23,9 +23,9 @@ public class ConnectionUtil {
 
         //Use our database credentials to establish a database connection
 
-        String url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=employee_portal";
-        String username = "postgres";
-        String password = "password";
+        String url = System.getenv("postgresurl");
+        String username = System.getenv("postgresusername");
+        String password = System.getenv("postgrespassword");
         /*
         url - location of your database/schema
         username - postgres username
