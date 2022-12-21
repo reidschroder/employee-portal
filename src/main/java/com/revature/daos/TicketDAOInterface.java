@@ -10,6 +10,8 @@ public interface TicketDAOInterface {
 
     ArrayList<Ticket> getTicketsById(int user_id);
 
+    boolean updateTicketStatus(int reimbursement_status_id_fk, int ers_reimbursement_id);
+
 
     Ticket insertTicket(Ticket tick);
 

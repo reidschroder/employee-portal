@@ -81,4 +81,30 @@ public class TicketController {
         }}
         ;
     };
+
+
+    public Handler updateTicketStatusHandler = (ctx) -> {
+
+        int reimbursement_status_id_fk = Integer.parseInt(ctx.body());
+
+        int ers_reimbursement_id = Integer.parseInt(ctx.pathParam("ers_reimbursement_id"));
+
+        Gson gson = new Gson();
+
+
+
+        boolean updated = tDAO.updateTicketStatus( reimbursement_status_id_fk, ers_reimbursement_id);
+
+
+        if( updated){
+            ctx.status(201);
+            ctx.result("Reimbursement Updated");
+        } else {
+            ctx.status(401);
+            ctx.result("You must update the foreign id to 2-Approved OR 3-Denied");
+        }
+
+    };
+
+
 }

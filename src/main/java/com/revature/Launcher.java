@@ -1,9 +1,6 @@
 package com.revature;
 
-import com.revature.controllers.AuthController;
-import com.revature.controllers.RoleController;
-import com.revature.controllers.TicketController;
-import com.revature.controllers.UserController;
+import com.revature.controllers.*;
 import com.revature.daos.UserDAO;
 import com.revature.utils.ConnectionUtil;
 import io.javalin.Javalin;
@@ -36,6 +33,8 @@ public class Launcher {
 
         TicketController tc = new TicketController();
 
+//        TicketStatusController tsc = new TicketStatusController();
+
         AuthController ac = new AuthController();
 
 
@@ -51,6 +50,8 @@ public class Launcher {
         app.post("/login", ac.loginHandler);
 
         app.post("/register", uc.userHandler);
+
+         app.patch("/update/{ers_reimbursement_id}", tc.updateTicketStatusHandler);
 
 //        UserDAO uDAO = new UserDAO();
 //

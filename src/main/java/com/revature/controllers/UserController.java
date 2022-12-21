@@ -45,7 +45,7 @@ public class UserController {
             ctx.status(201);
             ctx.result(body);
         } else {
-            ctx.status(406);
+            ctx.status(401);
             ctx.result("Employee username is already taken. Please create unique username.");
         }
 

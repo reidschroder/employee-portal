@@ -33,6 +33,13 @@ public class Ticket {
         this.reimbursement_status_id_fk = reimbursement_status_id_fk;
     }
 
+    public Ticket(int ers_reimbursement_id, int reimbursement_amount, String reimbursement_description, int reimbursement_status_id_fk) {
+        this.ers_reimbursement_id = ers_reimbursement_id;
+        this.reimbursement_amount = reimbursement_amount;
+        this.reimbursement_description = reimbursement_description;
+        this.reimbursement_status_id_fk = reimbursement_status_id_fk;
+    }
+
     //GETTERS & SETTERS ====================================
 
 
