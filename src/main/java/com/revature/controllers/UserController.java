@@ -41,7 +41,7 @@ public class UserController {
         use = uDAO.insertUser(use);
 
 
-        if(uDAO.insertUser(use) != null){
+        if(use != null){
             ctx.status(201);
             ctx.result(body);
         } else {
