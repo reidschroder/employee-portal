@@ -29,5 +29,27 @@ public class UserController {
         //ctx.status(401);
     };
 
+    public Handler userHandler = (ctx) -> {
+
+        String body = ctx.body();
+
+        Gson gson = new Gson();
+
+
+        User use = gson.fromJson(body, User.class);
+
+        use = uDAO.insertUser(use);
+
+
+        if(uDAO.insertUser(use) != null){
+            ctx.status(201);
+            ctx.result(body);
+        } else {
+            ctx.status(406);
+            ctx.result("Employee username is already taken. Please create valid username.");
+        }
+
+    };
+
 
 }

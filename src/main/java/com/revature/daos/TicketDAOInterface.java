@@ -8,6 +8,8 @@ public interface TicketDAOInterface {
 
     ArrayList<Ticket> getTickets();
 
+    ArrayList<Ticket> getTicketsById();
+
 
     Ticket insertTicket(Ticket tick);
 

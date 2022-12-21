@@ -58,31 +58,63 @@ public class UserDAO implements UserDAOInterface {
 
 
 
-    @Override
-    public User insertUser(User use) {
+//    @Override
+//    public User insertUser(User use) {
+//
+//        try(Connection conn = ConnectionUtil.getConnection()) {
+//            String sql = "insert into ers_users (ers_username, ers_password, user_first_name, user_last_name, user_role_id_fk) values (?, ?, ?, ?, ?);";
+//
+//            PreparedStatement ps = conn.prepareStatement(sql);
+//
+//            ps.setString(1, use.getErs_username());
+//            ps.setString(2, use.getErs_password());
+//            ps.setString(3, use.getUser_first_name());
+//            ps.setString(4, use.getUser_last_name());
+//            ps.setInt(5, use.getUser_role_id_fk());
+//
+//            ps.executeUpdate();
+//
+//            return use;
+//
+//
+//        } catch(SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//
+//        return null;
+//    }
+//ADD INSERT USER METHOD HERE FOR REGISTER=====================================
+public User insertUser(User use){
+    try(Connection conn = ConnectionUtil.getConnection()){
 
-        try(Connection conn = ConnectionUtil.getConnection()) {
-            String sql = "insert into ers_users (ers_username, ers_password, user_first_name, user_last_name, user_role_id_fk) values (?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO ers_users (ers_username, ers_password, user_first_name, user_last_name, user_role_id_fk) values (?, ?, ?, ?, 2);";
 
-            PreparedStatement ps = conn.prepareStatement(sql);
+        PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1, use.getErs_username());
-            ps.setString(2, use.getErs_password());
-            ps.setString(3, use.getUser_first_name());
-            ps.setString(4, use.getUser_last_name());
-            ps.setInt(5, use.getUser_role_id_fk());
-
-            ps.executeUpdate();
-
-            return use;
+        ps.setString(1, use.getErs_username());
+        ps.setString(2, use.getErs_password());
+        ps.setString(3, use.getErs_username());
+        ps.setString(4, use.getUser_last_name());
 
 
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
+        ps.executeUpdate();
+
+        return use;
 
 
 
-        return null;
+
+    } catch (SQLException e)
+
+    {
+        e.printStackTrace();
     }
+    return null;
+}
+
+
+
+
 }
