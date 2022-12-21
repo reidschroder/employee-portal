@@ -33,6 +33,15 @@ public class Ticket {
         this.reimbursement_status_id_fk = reimbursement_status_id_fk;
     }
 
+    public Ticket(int reimbursement_amount, String reimbursement_description, int user_id_author_fk, int user_id_resolver_fk, int reimbursement_type_id_fk, int reimbursement_status_id_fk) {
+        this.reimbursement_amount = reimbursement_amount;
+        this.reimbursement_description = reimbursement_description;
+        this.user_id_author_fk = user_id_author_fk;
+        this.user_id_resolver_fk = user_id_resolver_fk;
+        this.reimbursement_type_id_fk = reimbursement_type_id_fk;
+        this.reimbursement_status_id_fk = reimbursement_status_id_fk;
+    }
+
     public Ticket(int ers_reimbursement_id, int reimbursement_amount, String reimbursement_description, int reimbursement_status_id_fk) {
         this.ers_reimbursement_id = ers_reimbursement_id;
         this.reimbursement_amount = reimbursement_amount;

@@ -85,6 +85,33 @@ public class TicketDAO implements TicketDAOInterface {
 
     @Override
     public Ticket insertTicket(Ticket tick) {
+
+        try(Connection conn = ConnectionUtil.getConnection()){
+
+            String sql = "INSERT INTO ers_reimbursements (reimbursement_amount, reimbursement_description, user_id_author_fk, user_id_resolver_fk, reimbursement_type_id_fk, reimbursement_status_id_fk) values (?, ?, ?, null, ?, 1);";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, tick.getReimbursement_amount());
+            ps.setString(2, tick.getReimbursement_description());
+            ps.setInt(3, tick.getUser_id_author_fk());
+            ps.setInt(4, tick.getReimbursement_type_id_fk());
+
+
+            ps.executeUpdate();
+
+            return tick;
+
+
+
+
+        } catch (SQLException e)
+
+        {
+            e.printStackTrace();
+        }
+
+
         return null;
     }
 

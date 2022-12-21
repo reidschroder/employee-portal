@@ -53,6 +53,7 @@ public class Launcher {
 
          app.patch("/update/{ers_reimbursement_id}", tc.updateTicketStatusHandler);
 
+         app.post("/tickets/create", tc.createTicketHandler);
 //        UserDAO uDAO = new UserDAO();
 //
 //        System.out.println(uDAO.getUsers());

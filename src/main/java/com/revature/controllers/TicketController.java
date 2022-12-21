@@ -84,27 +84,53 @@ public class TicketController {
 
 
     public Handler updateTicketStatusHandler = (ctx) -> {
+        if (AuthController.ses != null) {
+
+            if ((Integer)AuthController.ses.getAttribute("user_role_id") == 2) {
 
         int reimbursement_status_id_fk = Integer.parseInt(ctx.body());
 
         int ers_reimbursement_id = Integer.parseInt(ctx.pathParam("ers_reimbursement_id"));
 
-        Gson gson = new Gson();
-
-
+        /*Gson gson = new Gson();*/
 
         boolean updated = tDAO.updateTicketStatus( reimbursement_status_id_fk, ers_reimbursement_id);
 
-
-        if( updated){
+        if( updated) {
             ctx.status(201);
             ctx.result("Reimbursement Updated");
-        } else {
+        }} else {
             ctx.status(401);
             ctx.result("You must update the foreign id to 2-Approved OR 3-Denied");
+        }}
+    };
+
+    public Handler createTicketHandler = (ctx) -> {
+
+        if (AuthController.ses != null) {
+
+            if ((Integer) AuthController.ses.getAttribute("user_role_id") == 2) {
+
+                String body = ctx.body();
+
+                Gson gson = new Gson();
+
+                Ticket tick = gson.fromJson(body, Ticket.class);
+
+                tick = tDAO.insertTicket(tick);
+
+                if(tick != null){
+                    ctx.status(201);
+                    ctx.result(body);
+                } else {
+                    ctx.status(401);
+                    ctx.result("Please enter valid fields. You must submit an answer for each field");
+                }
+
+
+
+            }
         }
 
     };
-
-
 }
