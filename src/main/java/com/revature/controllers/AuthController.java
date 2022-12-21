@@ -41,6 +41,7 @@ public class AuthController {
             ctx.status(202);
         } else {
             ctx.status(401);
+            ctx.result("Invalid username or password. Please login with the correct credentials");
         }
     };
 

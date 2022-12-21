@@ -3,10 +3,7 @@ package com.revature.daos;
 import com.revature.models.Ticket;
 import com.revature.utils.ConnectionUtil;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class TicketDAO implements TicketDAOInterface {
@@ -47,15 +44,18 @@ public class TicketDAO implements TicketDAOInterface {
     }
 
     @Override
-    public ArrayList<Ticket> getTicketsById() {
+    public ArrayList<Ticket> getTicketsById(int user_id) {
 
         try(Connection conn = ConnectionUtil.getConnection()){
 
             String sql = "SELECT * FROM ers_reimbursements WHERE user_id_author_fk = ?";
 
-            Statement s = conn.createStatement();
+            PreparedStatement ps = conn.prepareStatement(sql);
 
-            ResultSet rs = s.executeQuery(sql);
+            ps.setInt(1, user_id);
+
+
+            ResultSet rs = ps.executeQuery();
 
             ArrayList<Ticket> ticketList = new ArrayList<>();
 
