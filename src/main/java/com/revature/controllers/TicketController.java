@@ -36,18 +36,15 @@ public class TicketController {
                 ctx.status(202);
 
 
-            } else {
-                ctx.status(401);
-                ctx.result("Only managers can view all tickets. If you are a manager, please log in. Associates must use the Associate portal to view their ticket history.");
             }
+
+
+
+        } else {
+            ctx.status(401);
+            ctx.result("Only managers can view all tickets. If you are a manager, please log in. Associates must use the Associate portal to view their ticket history.");
         }
-//        Gson gson = new Gson();
-//
-//        String JSONTickets = gson.toJson(tickets);
-//
-//        ctx.result(JSONTickets);
-//
-//        ctx.status(202);
+
     };
 
 
@@ -75,11 +72,12 @@ public class TicketController {
             ctx.status(202);
 
 
+        }
         } else {
             ctx.status(401);
             ctx.result("Only associates can view their own tickets. If you are an associate, please log in. Managers must use the manager portal to view all pending tickets.");
-        }}
-        ;
+        }
+
     };
 
 
@@ -122,14 +120,14 @@ public class TicketController {
                 if(tick != null){
                     ctx.status(201);
                     ctx.result(body);
-                } else {
-                    ctx.status(401);
-                    ctx.result("Please enter valid fields. You must submit an answer for each field");
                 }
 
 
 
             }
+        } else {
+            ctx.status(401);
+            ctx.result("Please enter valid fields. You must submit an answer for each field");
         }
 
     };
