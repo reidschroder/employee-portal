@@ -10,13 +10,14 @@ import java.util.ArrayList;
 public class TicketDAO implements TicketDAOInterface {
 
 
+
+    //Method for Manager to get All Pending Tickets
     @Override
     public ArrayList<Ticket> getTickets() {
 
         try(Connection conn = ConnectionUtil.getConnection()){
 
 
-            //IF this breaks, changed from SELECT * FROM ers_reimbursements
             String sql = "SELECT * FROM ers_reimbursements WHERE reimbursement_status_id_fk = 1";
 
             Statement s = conn.createStatement();
@@ -50,6 +51,8 @@ public class TicketDAO implements TicketDAOInterface {
         return null;
     }
 
+
+    //Method for Associates to get all of their created tickets regardless of status
     @Override
     public ArrayList<Ticket> getTicketsById(int user_id) {
 
@@ -91,7 +94,7 @@ public class TicketDAO implements TicketDAOInterface {
     }
 
 
-    //REMOVE AUTHOR FK TO SEE IF IT STILL WORKS
+    //Method to create a new reimbursement ticket
     @Override
     public Ticket insertTicket(Ticket tick) {
 
@@ -152,6 +155,8 @@ public class TicketDAO implements TicketDAOInterface {
         return false;
     }
 
+
+    //Get Ticket Status ID for UpdateTicketStatus (Method Above This One) in order to make tickets that aren't pending immutable
     @Override
     public Ticket getTicketsByStatusId(int ers_reimbursement_id) {
 
