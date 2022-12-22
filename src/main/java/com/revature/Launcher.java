@@ -42,7 +42,11 @@ public class Launcher {
         app.get("/users", uc.getUsersHandler);
         //app.get("/roles", rc.get);
 
+
+
         app.get("/tickets", tc.getTicketsHandler);
+
+
         //get tickets by user ID
         app.get("/tickets/userid", tc.getTicketsByAuthorIdHandler);
 

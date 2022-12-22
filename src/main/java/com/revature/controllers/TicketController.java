@@ -13,15 +13,13 @@ public class TicketController {
 
     //Handler to get all tickets
 
-    //Manager View ONLY
+    //Manager View ONLY. Get All Pending Tickets
     public Handler getTicketsHandler = (ctx) -> {
         //ArrayList<Ticket> tickets = tDAO.getTickets();
 
         if (AuthController.ses != null) {
 
             if ((Integer) AuthController.ses.getAttribute("user_role_id") == 1) {
-
-                int user_id = (Integer) AuthController.ses.getAttribute("user_id");
 
 
                 //We need an ArrayList of Employees, courtesy of our EmployeeDAO
