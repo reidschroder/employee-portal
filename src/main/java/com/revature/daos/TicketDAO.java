@@ -1,5 +1,6 @@
 package com.revature.daos;
 
+import com.revature.controllers.AuthController;
 import com.revature.models.Ticket;
 import com.revature.utils.ConnectionUtil;
 
@@ -16,7 +17,7 @@ public class TicketDAO implements TicketDAOInterface {
 
 
             //IF this breaks, changed from SELECT * FROM ers_reimbursements
-            String sql = "SELECT ers_reimbursement_id, reimbursement_amount, reimbursement_description, reimbursement_status_id_fk FROM ers_reimbursements WHERE reimbursement_status_id_fk = 1";
+            String sql = "SELECT * FROM ers_reimbursements WHERE reimbursement_status_id_fk = 1";
 
             Statement s = conn.createStatement();
 
@@ -30,6 +31,9 @@ public class TicketDAO implements TicketDAOInterface {
                         rs.getInt("ers_reimbursement_id"),
                         rs.getInt("reimbursement_amount"),
                         rs.getString("reimbursement_description"),
+                        rs.getInt("user_id_author_fk"),
+                        rs.getInt("user_id_resolver_fk"),
+                        rs.getInt("reimbursement_type_id_fk"),
                         rs.getInt("reimbursement_status_id_fk")
 
                 );
@@ -67,8 +71,11 @@ public class TicketDAO implements TicketDAOInterface {
                 Ticket t = new Ticket(
                         rs.getInt("ers_reimbursement_id"),
                         rs.getInt("reimbursement_amount"),
-                        rs.getString("reimbursement_description")
-
+                        rs.getString("reimbursement_description"),
+                        rs.getInt("user_id_author_fk"),
+                        rs.getInt("user_id_resolver_fk"),
+                        rs.getInt("reimbursement_type_id_fk"),
+                        rs.getInt("reimbursement_status_id_fk")
                 );
                 ticketList.add(t);
             }
@@ -96,15 +103,13 @@ public class TicketDAO implements TicketDAOInterface {
 
             ps.setInt(1, tick.getReimbursement_amount());
             ps.setString(2, tick.getReimbursement_description());
-            ps.setInt(3, tick.getUser_id_author_fk());
+            ps.setInt(3,(Integer)AuthController.ses.getAttribute("user_id"));
             ps.setInt(4, tick.getReimbursement_type_id_fk());
 
 
             ps.executeUpdate();
 
             return tick;
-
-
 
 
         } catch (SQLException e)
@@ -146,4 +151,47 @@ public class TicketDAO implements TicketDAOInterface {
         }
         return false;
     }
+
+    @Override
+    public Ticket getTicketsByStatusId(int ers_reimbursement_id) {
+
+        try(Connection conn = ConnectionUtil.getConnection()){
+
+            String sql = "SELECT * FROM ers_reimbursements WHERE ers_reimbursement_id = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, ers_reimbursement_id);
+
+
+            ResultSet rs = ps.executeQuery();
+
+
+
+            if(rs.next()) {
+
+                Ticket tbid = new Ticket(
+                        rs.getInt("ers_reimbursement_id"),
+                        rs.getInt("reimbursement_amount"),
+                        rs.getString("reimbursement_description"),
+                        rs.getInt("user_id_author_fk"),
+                        rs.getInt("user_id_resolver_fk"),
+                        rs.getInt("reimbursement_type_id_fk"),
+                        rs.getInt("reimbursement_status_id_fk")
+                );
+
+
+                return tbid;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
+
+
+
 }

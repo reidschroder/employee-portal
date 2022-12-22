@@ -15,4 +15,8 @@ public interface TicketDAOInterface {
 
     Ticket insertTicket(Ticket tick);
 
+
+    //Create a restriction so managers cannot change Reimbursement ID's After they have been changed
+    Ticket getTicketsByStatusId(int ers_reimbursement_id);
+
 }
