@@ -18,7 +18,6 @@ public class Launcher {
 
             e.printStackTrace();
         }
-
         //Create Javalin object
         Javalin app = Javalin.create(
                 config -> {
@@ -33,36 +32,29 @@ public class Launcher {
 
         TicketController tc = new TicketController();
 
-//        TicketStatusController tsc = new TicketStatusController();
-
         AuthController ac = new AuthController();
-
 
 
         app.get("/users", uc.getUsersHandler);
         //app.get("/roles", rc.get);
 
-
-
+        //Get All Pending Tickets -- MANAGER VIEW
         app.get("/tickets", tc.getTicketsHandler);
 
-
-        //get tickets by user ID
+        //Get Tickets By User ID -- ASSOCIATE VIEW
         app.get("/tickets/userid", tc.getTicketsByAuthorIdHandler);
 
-
+        // LOGIN
         app.post("/login", ac.loginHandler);
 
+        // REGISTER
         app.post("/register", uc.userHandler);
 
-         app.patch("/update/{ers_reimbursement_id}", tc.updateTicketStatusHandler);
+        //Update Reimbursement Status -- MANAGER VIEW
+        app.patch("/update/{ers_reimbursement_id}", tc.updateTicketStatusHandler);
 
-         app.post("/tickets/create", tc.createTicketHandler);
-//        UserDAO uDAO = new UserDAO();
-//
-//        System.out.println(uDAO.getUsers());
-
-
+        //Create New Reimbursement Request -- ASSOCIATE VIEW
+        app.post("/tickets/create", tc.createTicketHandler);
     }
 
 }

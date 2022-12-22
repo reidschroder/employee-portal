@@ -121,7 +121,6 @@ public class TicketDAO implements TicketDAOInterface {
 
         try (Connection conn = ConnectionUtil.getConnection()) {
 
-            //create our SQL String (to be filled with values from the method arguments)
 
             //THIS MIGHT UPDATE ALL REIMBURSEMENT STATUSES. DON"T USE UNTIL WE KNOW THE PROPER INPUT
             String sql = "UPDATE ers_reimbursements SET reimbursement_status_id_fk = ? WHERE ers_reimbursement_id = ?;";

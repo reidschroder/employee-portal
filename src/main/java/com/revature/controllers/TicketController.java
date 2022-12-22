@@ -11,18 +11,15 @@ public class TicketController {
 
     TicketDAO tDAO = new TicketDAO();
 
-    //Handler to get all tickets
-
     //Manager View ONLY. Get All Pending Tickets
     public Handler getTicketsHandler = (ctx) -> {
-        //ArrayList<Ticket> tickets = tDAO.getTickets();
+
 
         if (AuthController.ses != null) {
 
             if ((Integer) AuthController.ses.getAttribute("user_role_id") == 1) {
 
 
-                //We need an ArrayList of Employees, courtesy of our EmployeeDAO
                 ArrayList<Ticket> tickets = tDAO.getTickets();
 
                 Gson gson = new Gson();
@@ -34,31 +31,26 @@ public class TicketController {
                 ctx.status(202);
 
 
+            } else {
+                ctx.status(401);
+                ctx.result("Only managers can view all pending tickets. If you are a manager, please log in. Associates must use the Associate portal to view their ticket history.");
             }
-
-
-
-        } else {
-            ctx.status(401);
-            ctx.result("Only managers can view all tickets. If you are a manager, please log in. Associates must use the Associate portal to view their ticket history.");
         }
 
     };
 
 
+    //ASSOCIATE VIEW -- Get All Tickets For Associate by their login id
     public Handler getTicketsByAuthorIdHandler = (ctx) -> {
-        //ArrayList<Ticket> tickets = tDAO.getTicketsById(user_id);
-
 
         //This method is meant to only be accessed by associates
-        // Figure out how to make this non-accessible for Managers
         if (AuthController.ses != null) {
 
             if ((Integer)AuthController.ses.getAttribute("user_role_id") == 2) {
 
 
             int user_id = (Integer) AuthController.ses.getAttribute("user_id");
-            //We need an ArrayList of Employees, courtesy of our EmployeeDAO
+
             ArrayList<Ticket> tickets = tDAO.getTicketsById(user_id);
 
             Gson gson = new Gson();
@@ -69,26 +61,23 @@ public class TicketController {
 
             ctx.status(202);
 
-
+        }else {
+                ctx.status(401);
+                ctx.result("Only associates can view their own tickets. If you are an associate, please log in. Managers must use the manager portal to view all pending tickets.");
+            }
         }
-        } else {
-            ctx.status(401);
-            ctx.result("Only associates can view their own tickets. If you are an associate, please log in. Managers must use the manager portal to view all pending tickets.");
-        }
-
     };
 
 
+    //MANAGER VIEW -- Update Reimbursement Status From Pending To Accepted Or Denied
     public Handler updateTicketStatusHandler = (ctx) -> {
         if (AuthController.ses != null) {
 
-            if ((Integer)AuthController.ses.getAttribute("user_role_id") == 2) {
+            if ((Integer)AuthController.ses.getAttribute("user_role_id") == 1) {
 
         int reimbursement_status_id_fk = Integer.parseInt(ctx.body());
 
         int ers_reimbursement_id = Integer.parseInt(ctx.pathParam("ers_reimbursement_id"));
-
-        /*Gson gson = new Gson();*/
 
         boolean updated = tDAO.updateTicketStatus( reimbursement_status_id_fk, ers_reimbursement_id);
 
@@ -97,10 +86,12 @@ public class TicketController {
             ctx.result("Reimbursement Updated");
         }} else {
             ctx.status(401);
-            ctx.result("You must update the foreign id to 2-Approved OR 3-Denied");
+            ctx.result("You must be a Manager OR You must update the foreign id to 2-Approved OR 3-Denied");
         }}
     };
 
+
+    //ASSOCIATE VIEW -- Create Reimbursement Request
     public Handler createTicketHandler = (ctx) -> {
 
         if (AuthController.ses != null) {
@@ -123,9 +114,9 @@ public class TicketController {
 
 
             }
-        } else {
+        }else {
             ctx.status(401);
-            ctx.result("Please enter valid fields. You must submit an answer for each field");
+            ctx.result("Only Associates can create a new Reimbursement Request. If you are an Associate, please enter valid fields. You must submit an answer for each field");
         }
 
     };

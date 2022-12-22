@@ -13,7 +13,6 @@ public class Ticket {
 
     //CONSTRUCTORS ==========================================
 
-
     public Ticket() {
     }
 

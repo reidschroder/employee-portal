@@ -9,7 +9,6 @@ public interface UserDAOInterface {
 
     ArrayList<User> getUsers();
 
-    // Insert Users. MANAGER ONLY ?????????????????
     User insertUser(User use);
 
 }

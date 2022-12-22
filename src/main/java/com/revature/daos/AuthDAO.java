@@ -55,33 +55,4 @@ public class AuthDAO {
         }
         return null;
     }
-
-
-//    //ADD INSERT USER METHOD HERE FOR REGISTER=====================================
-//    public User register(User use){
-//        try(Connection conn = ConnectionUtil.getConnection()){
-//
-//            String sql = "INSERT INTO ers_users (ers_username, ers_password, user_first_name, user_last_name, user_role_id_fk) values (?, ?, ?, ?, 2);";
-//
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//
-//            ps.setString(1, use.getErs_username());
-//            ps.setString(2, use.getErs_password());
-//            ps.setString(1, use.getErs_username());
-//            ps.setString(2, use.getUser_last_name());
-//
-//            ps.executeUpdate();
-//
-//            return use;
-//
-//
-//
-//
-//        } catch (SQLException e)
-//
-//    {
-//        e.printStackTrace();
-//    }
-//        return null;
-//    }
 }

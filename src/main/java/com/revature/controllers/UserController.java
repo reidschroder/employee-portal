@@ -13,8 +13,9 @@ public class UserController {
 
 
     //Handler to Get All Users
+    //NOT USED IN PROJECT PRESENTATION
     public Handler getUsersHandler = (ctx) -> {
-         //if(AuthController.ses != null){
+
         ArrayList<User> users = uDAO.getUsers();
 
         Gson gson = new Gson();
@@ -24,9 +25,6 @@ public class UserController {
         ctx.result(JSONUsers);
 
         ctx.status(202);
-    //} else {
-        //ctx.result("YOU MUST BE A MANAGER TO DO THIS");
-        //ctx.status(401);
     };
 
     public Handler userHandler = (ctx) -> {
