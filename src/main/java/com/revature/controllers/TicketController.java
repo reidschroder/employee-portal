@@ -31,10 +31,10 @@ public class TicketController {
                 ctx.status(202);
 
 
-            } else {
-                ctx.status(401);
-                ctx.result("Only managers can view all pending tickets. If you are a manager, please log in. Associates must use the Associate portal to view their ticket history.");
             }
+        } else {
+            ctx.status(401);
+            ctx.result("Only managers can view all pending tickets. If you are a manager, please log in. Associates must use the Associate portal to view their ticket history.");
         }
 
     };
@@ -61,10 +61,10 @@ public class TicketController {
 
             ctx.status(202);
 
+        }
         }else {
-                ctx.status(401);
-                ctx.result("Only associates can view their own tickets. If you are an associate, please log in. Managers must use the manager portal to view all pending tickets.");
-            }
+            ctx.status(401);
+            ctx.result("Only associates can view their own tickets. If you are an associate, please log in. Managers must use the manager portal to view all pending tickets.");
         }
     };
 
@@ -75,19 +75,21 @@ public class TicketController {
 
             if ((Integer)AuthController.ses.getAttribute("user_role_id") == 1) {
 
-        int reimbursement_status_id_fk = Integer.parseInt(ctx.body());
+                int reimbursement_status_id_fk = Integer.parseInt(ctx.body());
 
-        int ers_reimbursement_id = Integer.parseInt(ctx.pathParam("ers_reimbursement_id"));
+                int ers_reimbursement_id = Integer.parseInt(ctx.pathParam("ers_reimbursement_id"));
 
-        boolean updated = tDAO.updateTicketStatus( reimbursement_status_id_fk, ers_reimbursement_id);
+                boolean updated = tDAO.updateTicketStatus(reimbursement_status_id_fk, ers_reimbursement_id);
 
-        if( updated) {
-            ctx.status(201);
-            ctx.result("Reimbursement Updated");
-        }} else {
+                if (updated) {
+                    ctx.status(201);
+                    ctx.result("Reimbursement Updated");
+                }
+            }
+        }else {
             ctx.status(401);
             ctx.result("You must be a Manager OR You must update the foreign id to 2-Approved OR 3-Denied");
-        }}
+        }
     };
 
 

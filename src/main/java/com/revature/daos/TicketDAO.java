@@ -83,6 +83,8 @@ public class TicketDAO implements TicketDAOInterface {
         return null;
     }
 
+
+    //REMOVE AUTHOR FK TO SEE IF IT STILL WORKS
     @Override
     public Ticket insertTicket(Ticket tick) {
 

@@ -30,6 +30,7 @@ public class AuthController {
 
 
         if (loggedInUser != null) {
+
             ses = ctx.req.getSession();
 
             ses.setAttribute("user_role_id", loggedInUser.getRole().getUser_role_id());
